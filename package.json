@@ -1,10 +1,10 @@
 {
-  "name": "graphql-codegen-typescript-validation-schema",
+  "name": "@lenditkr/graphql-codegen-typescript-validation-schema",
   "version": "0.7.1",
   "description": "GraphQL Code Generator plugin to generate form validation schema from your GraphQL schema",
   "respository": {
     "type": "git",
-    "url": "https://github.com/Code-Hex/graphql-codegen-typescript-validation-schema.git"
+    "url": "https://github.com/LenditKr/graphql-codegen-typescript-validation-schema.git"
   },
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
@@ -74,6 +74,6 @@
     "graphql": "^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
   },
   "bugs": {
-    "url": "https://github.com/Code-Hex/graphql-codegen-typescript-validation-schema/issues"
+    "url": "https://github.com/LenditKr/graphql-codegen-typescript-validation-schema/issues"
   }
 }
