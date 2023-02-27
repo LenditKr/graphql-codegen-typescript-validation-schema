@@ -9,11 +9,12 @@ import {
   ObjectTypeDefinitionNode,
   EnumTypeDefinitionNode,
   UnionTypeDefinitionNode,
-  FieldDefinitionNode,
+  FieldDefinitionNode, GraphQLEnumType, GraphQLInputObjectType, GraphQLUnionType,
 } from 'graphql';
 import { DeclarationBlock, indent } from '@graphql-codegen/visitor-plugin-common';
 import { TsVisitor } from '@graphql-codegen/typescript';
 import { buildApi, formatDirectiveConfig } from '../directive';
+import {GraphQLObjectType} from "graphql/type/definition";
 
 const importZod = `import { z } from 'zod'`;
 const anySchema = `definedNonNullAnySchema`;
@@ -191,24 +192,24 @@ const generateNameNodeZodSchema = (
 ): string => {
   const typ = schema.getType(node.value);
 
-  if (typ?.astNode?.kind === 'InputObjectTypeDefinition') {
-    const enumName = tsVisitor.convertName(typ.astNode.name.value);
-    return `${enumName}Schema()`;
+  if (typ instanceof GraphQLInputObjectType) {
+    const name = tsVisitor.convertName(typ.name);
+    return `${name}Schema()`;
   }
 
-  if (typ?.astNode?.kind === 'ObjectTypeDefinition') {
-    const enumName = tsVisitor.convertName(typ.astNode.name.value);
-    return `${enumName}Schema()`;
+  if (typ instanceof GraphQLObjectType) {
+    const name = tsVisitor.convertName(typ.name);
+    return `${name}Schema()`;
   }
 
-  if (typ?.astNode?.kind === 'EnumTypeDefinition') {
-    const enumName = tsVisitor.convertName(typ.astNode.name.value);
-    return `${enumName}Schema`;
+  if (typ instanceof GraphQLEnumType) {
+    const name = tsVisitor.convertName(typ.name);
+    return `${name}Schema`;
   }
 
-  if (typ?.astNode?.kind === 'UnionTypeDefinition') {
-    const enumName = tsVisitor.convertName(typ.astNode.name.value);
-    return `${enumName}Schema()`;
+  if (typ instanceof GraphQLUnionType) {
+    const name = tsVisitor.convertName(typ.name);
+    return `${name}Schema()`;
   }
 
   return zod4Scalar(config, tsVisitor, node.value);
